@@ -1,0 +1,191 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: rgba(226, 218, 237, 0.921);
+  display: flex;
+  justify-content: center;
+  padding: 50px 20px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.todo-container {
+  display: flex;
+  align-items: center;
+  max-width: 800vw;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.main-card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 500px;
+  height: 230px;
+  min-height: 230px;
+  max-height: 230px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 12px;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.main-card h1 {
+  font-size: 28px; /* più grande */
+  font-weight: 700; /* grassetto */
+  color: #5c3d99; /* colore più deciso */
+  text-align: center;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.main-card input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.main-card input:focus {
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+
+.main-card button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #a48de7;
+  color: white;
+}
+
+.main-card button:hover {
+  background-color: #9c82e9;
+}
+
+.days-section {
+  margin-top: 30px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.days-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  max-height: 400px;
+  padding-bottom: 10px;
+}
+
+.day-card {
+  flex: 0 0 300px;
+  height: auto;
+  scroll-snap-align: start;
+  background-color: #f1f3f5;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.days-wrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.days-wrapper::-webkit-scrollbar-thumb {
+  background-color: #ced4da;
+  border-radius: 10px;
+}
+
+/* Card giorno */
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.day-header h2 {
+  font-size: 16px; /* più leggibile */
+  font-weight: 600;
+  color: #4b3c91; /* colore più elegante */
+  background-color: #e0d7f5; /* leggero sfondo viola chiaro */
+  padding: 4px 10px;
+  border-radius: 12px; /* badge arrotondato */
+  display: inline-block; /* si comporta come badge */
+  margin: 0;
+}
+
+.delete-day-button {
+  background-color: #343a40;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.delete-day-button:hover {
+  background-color: #212529;
+}
+
+.day-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.day-card li {
+  background: white;
+  padding: 8px;
+  margin-bottom: 6px;
+  border-radius: 8px;
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remove-button {
+  background-color: #ff6b6b;
+  color: white;
+  font-size: 12px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background-color: #fa5252;
+}
+
+@media screen and (max-width: 300px) {
+  h1 {
+    font-size: 10vw;
+    text-align: center;
+    margin: 0 auto;
+  }
+}
