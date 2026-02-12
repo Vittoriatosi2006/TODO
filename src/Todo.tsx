@@ -1,28 +1,67 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+
+type Task = {
+  text: string;
+  completed: boolean;
+};
 
 export default function ToDo() {
   const [tasksByDate, setTasksByDate] = useState<{
-    [date: string]: string[];
-  }>({});
+    [date: string]: Task[];
+  }>(() => {
+    const saved = localStorage.getItem("tasksByDate");
+    return saved ? JSON.parse(saved) : {};
+  });
 
   const [inputValue, setInputValue] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
 
+  useEffect(() => {
+    localStorage.setItem("tasksByDate", JSON.stringify(tasksByDate));
+  }, [tasksByDate]);
+
   function addTask() {
     if (inputValue.trim() === "" || selectedDate === "") return;
+
+    const newTask: Task = {
+      text: inputValue,
+      completed: false,
+    };
 
     setTasksByDate((prev) => ({
       ...prev,
       [selectedDate]: prev[selectedDate]
-        ? [...prev[selectedDate], inputValue] // crea un nuovo array con il task aggiunto
-        : [inputValue], // se non esiste ancora, crea un nuovo array
+        ? [...prev[selectedDate], newTask]
+        : [newTask],
     }));
 
     setInputValue("");
   }
 
+  function toggleTaskCompleted(date: string, indexToToggle: number) {
+    setTasksByDate((prev) => {
+      const updated = { ...prev };
+
+      updated[date] = updated[date].map((task, index) =>
+        index === indexToToggle
+          ? { ...task, completed: !task.completed }
+          : task,
+      );
+
+      // Metti le completate in fondo
+      updated[date].sort((a, b) => Number(a.completed) - Number(b.completed));
+
+      return updated;
+    });
+  }
+
   function removeTask(date: string, indexToRemove: number) {
+    const confirmed = window.confirm(
+      "Sei sicura di voler eliminare questo task?",
+    );
+    if (!confirmed) return;
+
     setTasksByDate((prev) => {
       const updated = { ...prev };
 
@@ -30,7 +69,6 @@ export default function ToDo() {
         (_, index) => index !== indexToRemove,
       );
 
-      // Se non ci sono più task, elimina proprio il giorno
       if (updated[date].length === 0) {
         delete updated[date];
       }
@@ -40,17 +78,36 @@ export default function ToDo() {
   }
 
   function removeDay(date: string) {
+    const confirmed = window.confirm(
+      `Sei sicura di voler eliminare tutti i task di ${formatDateLabel(date)}?`,
+    );
+    if (!confirmed) return;
+
     setTasksByDate((prev) => {
       const updated = { ...prev };
       delete updated[date];
       return updated;
     });
   }
+
+  function formatDateLabel(dateString: string) {
+    const date = new Date(dateString);
+
+    const formatted = date.toLocaleDateString("it-IT", {
+      weekday: "long",
+      day: "2-digit",
+      month: "2-digit",
+    });
+
+    return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+  }
+
   return (
     <div className="todo-container">
       {/* CARD PRINCIPALE */}
       <div className="main-card">
         <h1>Todo Planner</h1>
+
         <input
           type="text"
           placeholder="Write a task..."
@@ -74,8 +131,7 @@ export default function ToDo() {
           {Object.entries(tasksByDate).map(([date, tasks]) => (
             <div key={date} className="day-card">
               <div className="day-header">
-                <h2>{date.split("-").reverse().join("/")}</h2>{" "}
-                {/* giorno/mese/anno*/}
+                <h2>{formatDateLabel(date)}</h2>
                 <button
                   onClick={() => removeDay(date)}
                   className="delete-day-button"
@@ -86,14 +142,31 @@ export default function ToDo() {
 
               <ul>
                 {tasks.map((task, index) => (
-                  <li key={index}>
-                    {task}
-                    <button
-                      onClick={() => removeTask(date, index)}
-                      className="remove-button"
-                    >
-                      Remove
-                    </button>
+                  <li
+                    key={index}
+                    className={task.completed ? "task-completed" : ""}
+                  >
+                    <span className="task-text">{task.text}</span>
+
+                    <div className="task-actions">
+                      {/* SPUNTA */}
+                      <button
+                        onClick={() => toggleTaskCompleted(date, index)}
+                        className="complete-button"
+                        title="Segna come completata"
+                      >
+                        <i className="fa-solid fa-check"></i>
+                      </button>
+
+                      {/* CESTINO */}
+                      <button
+                        onClick={() => removeTask(date, index)}
+                        className="trash-button"
+                        title="Elimina task"
+                      >
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
