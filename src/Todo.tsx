@@ -173,50 +173,55 @@ export default function ToDo() {
       <div className="days-section">
         <div className="days-wrapper">
           {/* Object prende l'oggetto taskByDate e restituisce una tupla con data e task*/}
-          {Object.entries(tasksByDate).map(([date, tasks]) => (
-            <div key={date} className="day-card">
-              <div className="day-header">
-                <h2>{formatDateLabel(date)}</h2>
-                <button
-                  onClick={() => removeDay(date)}
-                  className="delete-day-button"
-                >
-                  x
-                </button>
-              </div>
-
-              <ul>
-                {tasks.map((task, index) => (
-                  <li
-                    key={index}
-                    className={task.completed ? "task-completed" : ""}
+          {Object.entries(tasksByDate)
+            .sort(
+              ([dateA], [dateB]) =>
+                new Date(dateA).getTime() - new Date(dateB).getTime(),
+            )
+            .map(([date, tasks]) => (
+              <div key={date} className="day-card">
+                <div className="day-header">
+                  <h2>{formatDateLabel(date)}</h2>
+                  <button
+                    onClick={() => removeDay(date)}
+                    className="delete-day-button"
                   >
-                    <span className="task-text">
-                      {task.text} {task.time && `(${task.time})`}
-                    </span>
+                    x
+                  </button>
+                </div>
 
-                    <div className="task-actions">
-                      <button
-                        onClick={() => toggleTaskCompleted(date, index)}
-                        className="complete-button"
-                        title="Segna come completata"
-                      >
-                        <i className="fa-solid fa-check"></i>
-                      </button>
+                <ul>
+                  {tasks.map((task, index) => (
+                    <li
+                      key={index}
+                      className={task.completed ? "task-completed" : ""}
+                    >
+                      <span className="task-text">
+                        {task.text} {task.time && `(${task.time})`}
+                      </span>
 
-                      <button
-                        onClick={() => removeTask(date, index)}
-                        className="trash-button"
-                        title="Elimina task"
-                      >
-                        <i className="fa-solid fa-trash"></i>
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                      <div className="task-actions">
+                        <button
+                          onClick={() => toggleTaskCompleted(date, index)}
+                          className="complete-button"
+                          title="Segna come completata"
+                        >
+                          <i className="fa-solid fa-check"></i>
+                        </button>
+
+                        <button
+                          onClick={() => removeTask(date, index)}
+                          className="trash-button"
+                          title="Elimina task"
+                        >
+                          <i className="fa-solid fa-trash"></i>
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
         </div>
       </div>
       {confirmData && (
