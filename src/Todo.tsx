@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ConfirmModal from "./ConfirmModal";
 import "./App.css";
 
 type Task = {
@@ -20,6 +21,11 @@ export default function ToDo() {
   useEffect(() => {
     localStorage.setItem("tasksByDate", JSON.stringify(tasksByDate));
   }, [tasksByDate]);
+
+  const [confirmData, setConfirmData] = useState<{
+    message: string;
+    onConfirm: () => void;
+  } | null>(null);
 
   function addTask() {
     if (inputValue.trim() === "" || selectedDate === "") return;
@@ -57,36 +63,42 @@ export default function ToDo() {
   }
 
   function removeTask(date: string, indexToRemove: number) {
-    const confirmed = window.confirm(
-      "Sei sicura di voler eliminare questo task?",
-    );
-    if (!confirmed) return;
+    setConfirmData({
+      message: "Sei sicura di voler eliminare questo task?",
+      onConfirm: () => {
+        setTasksByDate((prev) => {
+          const updated = { ...prev };
 
-    setTasksByDate((prev) => {
-      const updated = { ...prev };
+          updated[date] = updated[date].filter(
+            (_, index) => index !== indexToRemove,
+          );
 
-      updated[date] = updated[date].filter(
-        (_, index) => index !== indexToRemove,
-      );
+          if (updated[date].length === 0) {
+            delete updated[date];
+          }
 
-      if (updated[date].length === 0) {
-        delete updated[date];
-      }
+          return updated;
+        });
 
-      return updated;
+        setConfirmData(null);
+      },
     });
   }
 
   function removeDay(date: string) {
-    const confirmed = window.confirm(
-      `Sei sicura di voler eliminare tutti i task di ${formatDateLabel(date)}?`,
-    );
-    if (!confirmed) return;
+    setConfirmData({
+      message: `Sei sicura di voler eliminare tutti i task di ${formatDateLabel(
+        date,
+      )}?`,
+      onConfirm: () => {
+        setTasksByDate((prev) => {
+          const updated = { ...prev };
+          delete updated[date];
+          return updated;
+        });
 
-    setTasksByDate((prev) => {
-      const updated = { ...prev };
-      delete updated[date];
-      return updated;
+        setConfirmData(null);
+      },
     });
   }
 
@@ -174,6 +186,14 @@ export default function ToDo() {
           ))}
         </div>
       </div>
+      {confirmData && (
+        <ConfirmModal
+          isOpen={true}
+          message={confirmData.message}
+          onConfirm={confirmData.onConfirm}
+          onCancel={() => setConfirmData(null)}
+        />
+      )}
     </div>
   );
 }
