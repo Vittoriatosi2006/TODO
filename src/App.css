@@ -30,9 +30,9 @@ body {
   margin-bottom: 30px;
   width: 100%;
   max-width: 500px;
-  height: 230px;
-  min-height: 230px;
-  max-height: 230px;
+  height: 240px;
+  min-height: 240px;
+  max-height: 240px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -43,13 +43,13 @@ body {
 }
 
 .main-card h1 {
-  font-size: 28px; /* più grande */
-  font-weight: 700; /* grassetto */
-  color: #5c3d99; /* colore più deciso */
+  font-size: 28px;
+  font-weight: 700;
+  color: #5c3d99;
   text-align: center;
   letter-spacing: 1px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .main-card input {
@@ -81,6 +81,19 @@ body {
   background-color: #9c82e9;
 }
 
+.date-time-container {
+  display: flex;
+  gap: 10px; /* spazio tra data e ora */
+  margin: 10px 0;
+}
+
+.date-time-container input[type="date"],
+.date-time-container input[type="time"] {
+  flex: 1;
+  padding: 8px;
+  font-size: 1rem;
+}
+
 .days-section {
   margin-top: 30px;
   width: 100%;
@@ -92,8 +105,18 @@ body {
   flex-direction: column;
   gap: 20px;
   overflow-y: auto;
-  max-height: 400px;
+  max-height: 50vh;
   padding-bottom: 10px;
+}
+
+.days-wrapper::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.days-wrapper {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .day-card {
@@ -107,18 +130,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 30px;
 }
-
-.days-wrapper::-webkit-scrollbar {
-  height: 6px;
-}
-
-.days-wrapper::-webkit-scrollbar-thumb {
-  background-color: #ced4da;
-  border-radius: 10px;
-}
-
-/* Card giorno */
 
 .day-header {
   display: flex;
@@ -128,13 +141,13 @@ body {
 }
 
 .day-header h2 {
-  font-size: 16px; /* più leggibile */
+  font-size: 16px;
   font-weight: 600;
-  color: #4b3c91; /* colore più elegante */
-  background-color: #e0d7f5; /* leggero sfondo viola chiaro */
+  color: #4b3c91;
+  background-color: #e0d7f5;
   padding: 4px 10px;
-  border-radius: 12px; /* badge arrotondato */
-  display: inline-block; /* si comporta come badge */
+  border-radius: 12px;
+  display: inline-block;
   margin: 0;
 }
 
@@ -165,9 +178,9 @@ body {
   font-size: 13px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* ⬅ invece di center */
-  word-break: break-word; /* forza a spezzare parole lunghe */
-  overflow-wrap: break-word; /* standard moderno */
+  align-items: flex-start;
+  word-break: break-word;
+  overflow-wrap: break-word;
   min-width: 0;
 }
 
