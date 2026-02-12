@@ -144,11 +144,11 @@ export default function ToDo() {
     <div className="todo-container">
       {/* CARD PRINCIPALE */}
       <div className="main-card">
-        <h1>Todo Planner</h1>
+        <h1> Le mie task</h1>
 
         <input
           type="text"
-          placeholder="Write a task..."
+          placeholder="Scrivi una task..."
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
@@ -166,7 +166,7 @@ export default function ToDo() {
           />
         </div>
         <button onClick={addTask} className="add-button">
-          Add Task
+          Aggiungi Task
         </button>
       </div>
       {/*CARD X I GIORNI*/}
