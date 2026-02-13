@@ -155,25 +155,17 @@ export default function ToDo() {
 
         <div className="date-time-container">
           <input
-            type="text"
-            placeholder="Seleziona data"
+            type="date"
             value={selectedDate}
-            onFocus={(e) => (e.target.type = "date")} //quando siclicca nell'input
-            onBlur={(e) => {
-              if (!e.target.value) e.target.type = "text"; //quando si esce dall'input
-            }}
             onChange={(e) => setSelectedDate(e.target.value)}
+            className={selectedDate ? "filled" : ""}
           />
 
           <input
-            type="text"
-            placeholder="Seleziona ora"
+            type="time"
             value={inputTime}
-            onFocus={(e) => (e.target.type = "time")}
-            onBlur={(e) => {
-              if (!e.target.value) e.target.type = "text";
-            }}
             onChange={(e) => setInputTime(e.target.value)}
+            className={inputTime ? "filled" : ""}
           />
         </div>
 

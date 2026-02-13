@@ -67,13 +67,19 @@ body {
   box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
 }
 
+.date-time-container input[type="date"]:not(.filled)::before {
+  content: "Seleziona data";
+  color: #999;
+}
+
+.date-time-container input[type="time"]:not(.filled)::before {
+  content: "Seleziona ora";
+  color: #999;
+}
+
 .date-time-container input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 16px; /* evita zoom automatico su iOS */
-  background-color: white;
+  position: relative;
+  font-size: 16px;
 }
 
 .main-card button {
