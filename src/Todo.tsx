@@ -152,19 +152,31 @@ export default function ToDo() {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
+
         <div className="date-time-container">
           <input
-            type="date"
+            type="text"
+            placeholder="Seleziona data"
             value={selectedDate}
+            onFocus={(e) => (e.target.type = "date")} //quando siclicca nell'input
+            onBlur={(e) => {
+              if (!e.target.value) e.target.type = "text"; //quando si esce dall'input
+            }}
             onChange={(e) => setSelectedDate(e.target.value)}
           />
 
           <input
-            type="time"
+            type="text"
+            placeholder="Seleziona ora"
             value={inputTime}
+            onFocus={(e) => (e.target.type = "time")}
+            onBlur={(e) => {
+              if (!e.target.value) e.target.type = "text";
+            }}
             onChange={(e) => setInputTime(e.target.value)}
           />
         </div>
+
         <button onClick={addTask} className="add-button">
           Aggiungi Task
         </button>

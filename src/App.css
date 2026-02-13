@@ -67,16 +67,13 @@ body {
   box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
 }
 
-input[type="date"],
-input[type="time"] {
-  appearance: auto;
-  -webkit-appearance: auto;
-  background-color: white;
-  color: black;
+.date-time-container input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
   border: 1px solid #ccc;
-  padding: 8px;
-  border-radius: 8px;
-  font-size: 16px; /* importante per iOS */
+  font-size: 16px; /* evita zoom automatico su iOS */
+  background-color: white;
 }
 
 .main-card button {
