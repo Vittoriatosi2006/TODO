@@ -81,11 +81,11 @@ export default function ToDo() {
       //updated[date] è l'array di task della data selezionata
       updated[date] = updated[date].map((task, index) =>
         index === indexToToggle
-          ? { ...task, completed: !task.completed }
+          ? { ...task, completed: !task.completed } //se la task è completata la segna come non completata, e viceversa
           : task,
       );
 
-      updated[date] = sortTasks(updated[date]);
+      updated[date] = sortTasks(updated[date]); //le riordina
       return updated;
     });
   }
@@ -98,7 +98,7 @@ export default function ToDo() {
           const updated = { ...prev };
           //updated[date] è l'array di task della data selezionata
           updated[date] = updated[date].filter(
-            (_, index) => index !== indexToRemove, //crea u nuovo array con tutte le task tranne quella selezionata con index
+            (_, index) => index !== indexToRemove, //crea un nuovo array con tutte le task tranne quella selezionata con index
           );
           if (updated[date].length === 0) delete updated[date]; //se dopo la rimozione di quella task non ce ne sono altre per quella data, elimina anche la data
           return updated;
