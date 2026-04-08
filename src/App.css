@@ -77,8 +77,26 @@ body {
 }
 
 .main-card input:focus {
-  border-color: #4dabf7;
-  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+  transform: scale(1.02); /* ingrandimento leggero */
+  box-shadow:
+    0 4px 12px rgba(209, 154, 237, 0.6),
+    /* glow rosa */ 0 2px 6px rgba(0, 0, 0, 0.15); /* ombra standard */
+
+  background: linear-gradient(120deg, #ffffff, #e9e3f0, #ffffff);
+  background-size: 200% 200%;
+  animation: gradientShift 2s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .date-time-container input[type="date"]:not(.filled)::before {
@@ -103,7 +121,7 @@ body {
   cursor: pointer;
   font-size: 14px;
   font-size: 14px;
-  background: linear-gradient(135deg, #9584e1, #8773bf);
+  background: linear-gradient(135deg, #a194db, #8773bf);
   color: white;
   transition:
     transform 0.15s ease,
@@ -195,7 +213,7 @@ body {
 }
 
 .delete-day-button {
-  background-color: #ba5656;
+  background-color: #ec7575;
   box-shadow: 0 5px 10px rgba(186, 86, 86, 0.4);
   color: white;
   border: none;
@@ -206,7 +224,6 @@ body {
 }
 
 .delete-day-button:hover {
-  background-color: #c04646;
   transform: scale(1.1);
 }
 
@@ -234,13 +251,6 @@ body {
 .day-card li:hover {
   transform: scale(1.02);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-.task-text {
-  flex: 1;
-  margin-right: 10px;
-  word-break: break-word;
-  overflow-wrap: break-word;
 }
 
 .task-actions {
@@ -271,6 +281,28 @@ body {
 
 .trash-button:hover {
   transform: scale(1.1);
+}
+
+.task-content {
+  display: flex;
+  justify-content: space-between; /* orario a sinistra, testo a destra */
+  align-items: center;
+  flex: 1;
+}
+
+.task-time {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8681e3;
+  margin-right: 10px;
+  min-width: 50px;
+  text-align: left;
+}
+
+.task-text {
+  flex: 1;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .task-completed {

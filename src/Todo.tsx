@@ -148,7 +148,7 @@ export default function ToDo() {
 
         <input
           type="text"
-          placeholder="Scrivi una task..."
+          placeholder="Scrivi la tua task..."
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
@@ -170,7 +170,7 @@ export default function ToDo() {
         </div>
 
         <button onClick={addTask} className="add-button">
-          Aggiungi Task
+          Salva
         </button>
       </div>
       {/*CARD X I GIORNI*/}
@@ -200,9 +200,12 @@ export default function ToDo() {
                       key={index}
                       className={task.completed ? "task-completed" : ""}
                     >
-                      <span className="task-text">
-                        {task.text} {task.time && `(${task.time})`}
-                      </span>
+                      <div className="task-content">
+                        {task.time && (
+                          <span className="task-time">{task.time}</span>
+                        )}
+                        <span className="task-text">{task.text}</span>
+                      </div>
 
                       <div className="task-actions">
                         <button
