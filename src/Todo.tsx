@@ -144,7 +144,7 @@ export default function ToDo() {
     <div className="todo-container">
       {/* CARD PRINCIPALE */}
       <div className="main-card">
-        <h1> Le mie task</h1>
+        <h1> I miei impegni</h1>
 
         <input
           type="text"
@@ -190,7 +190,7 @@ export default function ToDo() {
                     onClick={() => removeDay(date)}
                     className="delete-day-button"
                   >
-                    x
+                    Elimina
                   </button>
                 </div>
 

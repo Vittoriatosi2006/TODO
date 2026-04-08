@@ -2,11 +2,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 body {
-  background-color: rgba(226, 218, 237, 0.921);
+  background: radial-gradient(
+    circle at center,
+    #f3f0ff 0%,
+    #e5dbff 30%,
+    #cbb8f3 100%
+  );
   display: flex;
   justify-content: center;
   padding: 50px 20px;
@@ -23,10 +28,17 @@ body {
 }
 
 .main-card {
-  background-color: #ffffff;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.88),
+    rgba(245, 242, 255, 0.92)
+  );
+  backdrop-filter: blur(8px);
   padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  border-radius: 18px;
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.08),
+    0 14px 35px rgba(0, 0, 0, 0.12);
   margin-bottom: 30px;
   width: 100%;
   max-width: 500px;
@@ -44,12 +56,14 @@ body {
 
 .main-card h1 {
   font-size: 28px;
-  font-weight: 700;
-  color: #5c3d99;
+  font-weight: 800;
   text-align: center;
+  background: linear-gradient(135deg, #846cec, #ada1e7);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   letter-spacing: 1px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
+  margin-bottom: 2px;
 }
 
 .main-card input {
@@ -88,12 +102,17 @@ body {
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
-  background-color: #a48de7;
+  font-size: 14px;
+  background: linear-gradient(135deg, #9584e1, #8773bf);
   color: white;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .main-card button:hover {
-  background-color: #9c82e9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .date-time-container {
@@ -141,11 +160,14 @@ body {
   background-color: #f1f3f5;
   padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-bottom: 30px;
+  background: linear-gradient(160deg, #f8f6ff, #ede7ff);
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.06),
+    0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .day-header {
@@ -161,13 +183,20 @@ body {
   color: #4b3c91;
   background-color: #e0d7f5;
   padding: 4px 10px;
-  border-radius: 12px;
+  border-radius: 8px;
   display: inline-block;
   margin: 0;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.day-header h2:hover {
+  transform: scale(1.05);
 }
 
 .delete-day-button {
-  background-color: #343a40;
+  background-color: #ba5656;
+  box-shadow: 0 5px 10px rgba(186, 86, 86, 0.4);
   color: white;
   border: none;
   padding: 5px 8px;
@@ -177,7 +206,8 @@ body {
 }
 
 .delete-day-button:hover {
-  background-color: #212529;
+  background-color: #c04646;
+  transform: scale(1.1);
 }
 
 .day-card ul {
@@ -197,6 +227,13 @@ body {
   word-break: break-word;
   overflow-wrap: break-word;
   min-width: 0;
+  transition: transform 0.15s ease;
+  box-shadow: 0.15s ease;
+}
+
+.day-card li:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .task-text {
@@ -215,9 +252,9 @@ body {
 .complete-button {
   background: transparent;
   border: none;
-  color: #b197fc;
   font-size: 16px;
   cursor: pointer;
+  color: rgb(23, 134, 23);
 }
 
 .complete-button:hover {
@@ -225,11 +262,15 @@ body {
 }
 
 .trash-button {
+  color: rgb(102, 96, 96);
   background: transparent;
-  color: #b197fc;
   border: none;
   cursor: pointer;
   font-size: 14px;
+}
+
+.trash-button:hover {
+  transform: scale(1.1);
 }
 
 .task-completed {
@@ -238,6 +279,7 @@ body {
   border-top: 2px solid #d0bfff;
   margin-top: 8px;
   padding-top: 8px;
+  transition: all 0.3s ease;
 }
 
 .modal-overlay {
