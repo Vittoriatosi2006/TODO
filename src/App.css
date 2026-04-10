@@ -271,6 +271,23 @@ body {
   transform: scale(1.1);
 }
 
+.edit-button {
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #374151;
+}
+
+.edit-button:hover {
+  transform: scale(1.05);
+}
+
+.edit-button i {
+  font-size: 14px;
+}
+
 .trash-button {
   color: rgb(102, 96, 96);
   background: transparent;

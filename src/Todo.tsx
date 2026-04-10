@@ -19,6 +19,10 @@ export default function ToDo() {
   const [inputValue, setInputValue] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [inputTime, setInputTime] = useState("");
+  const [editingTask, setEditingTask] = useState<{
+    date: string;
+    index: number;
+  } | null>(null);
 
   const [confirmData, setConfirmData] = useState<{
     message: string;
@@ -58,21 +62,45 @@ export default function ToDo() {
     };
 
     setTasksByDate((prev) => {
-      const updated = {
-        ...prev,
-        //prende le task già esistenti per quella data
-        [selectedDate]: prev[selectedDate] //se ci sono le riprende e ci aggiunge la nuova task
-          ? [...prev[selectedDate], newTask]
-          : [newTask], //altrimenti crea un nuovo array con la nuova task
-      };
+      const updated = { ...prev };
 
-      // Ordina le task appena aggiunte
-      updated[selectedDate] = sortTasks(updated[selectedDate]);
+      if (editingTask) {
+        const oldDate = editingTask.date;
+        const oldIndex = editingTask.index;
+
+        // rimuove la task dalla data vecchia
+        const taskToEdit = updated[oldDate][oldIndex];
+        updated[oldDate] = updated[oldDate].filter((_, i) => i !== oldIndex);
+
+        if (updated[oldDate].length === 0) delete updated[oldDate];
+
+        // crea la task modificata
+        const editedTask: Task = {
+          ...taskToEdit,
+          text: inputValue,
+          time: inputTime || undefined,
+        };
+
+        // aggiunge alla nuova data
+        updated[selectedDate] = updated[selectedDate]
+          ? [...updated[selectedDate], editedTask]
+          : [editedTask];
+
+        updated[selectedDate] = sortTasks(updated[selectedDate]);
+      } else {
+        updated[selectedDate] = prev[selectedDate]
+          ? [...prev[selectedDate], newTask]
+          : [newTask];
+
+        updated[selectedDate] = sortTasks(updated[selectedDate]);
+      }
+
       return updated;
     });
 
     setInputValue("");
     setInputTime("");
+    setEditingTask(null);
   }
 
   function toggleTaskCompleted(date: string, indexToToggle: number) {
@@ -88,6 +116,16 @@ export default function ToDo() {
       updated[date] = sortTasks(updated[date]); //le riordina
       return updated;
     });
+  }
+
+  function editTask(date: string, index: number) {
+    const task = tasksByDate[date][index];
+
+    setInputValue(task.text);
+    setSelectedDate(date);
+    setInputTime(task.time || "");
+
+    setEditingTask({ date, index });
   }
 
   function removeTask(date: string, indexToRemove: number) {
@@ -208,6 +246,7 @@ export default function ToDo() {
                       </div>
 
                       <div className="task-actions">
+                        {/*task completata*/}
                         <button
                           onClick={() => toggleTaskCompleted(date, index)}
                           className="complete-button"
@@ -215,7 +254,15 @@ export default function ToDo() {
                         >
                           <i className="fa-solid fa-check"></i>
                         </button>
-
+                        {/*task da modificare*/}
+                        <button
+                          onClick={() => editTask(date, index)}
+                          className="edit-button"
+                          title="Modifica task"
+                        >
+                          <i className="fa-solid fa-pen"></i>
+                        </button>
+                        {/*task da eliminare*/}
                         <button
                           onClick={() => removeTask(date, index)}
                           className="trash-button"
