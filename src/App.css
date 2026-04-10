@@ -264,7 +264,7 @@ body {
   border: none;
   font-size: 16px;
   cursor: pointer;
-  color: rgb(23, 134, 23);
+  color: rgb(35, 180, 35);
 }
 
 .complete-button:hover {
@@ -277,7 +277,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: #374151;
+  color: #778398;
 }
 
 .edit-button:hover {
@@ -289,7 +289,7 @@ body {
 }
 
 .trash-button {
-  color: rgb(102, 96, 96);
+  color: rgb(183, 129, 129);
   background: transparent;
   border: none;
   cursor: pointer;
